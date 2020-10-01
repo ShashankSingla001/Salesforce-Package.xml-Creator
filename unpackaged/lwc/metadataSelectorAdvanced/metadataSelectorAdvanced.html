@@ -1,0 +1,162 @@
+<template>
+    <div class="slds-box" style="background-color: #16325c;color: white;">
+        <div class="content slds-var-p-around_medium slds-is-relative">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" variant="brand" size="small">
+                </lightning-spinner>
+            </template>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-large-size_12-of-12 slds-small-size_12-of-12 titleClass"
+                            style="min-height:2rem;">
+                            <p>
+                                <lightning-formatted-text value="Metadata Components">
+                                </lightning-formatted-text>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_7-of-12 slds-var-m-bottom_xx-small">
+                            <lightning-input type="search" style="width:100%;color:black;display:inline-flex;"
+                                data-id="metadata" value={metaFilter} placeholder="Filter Metadata Here..."
+                                onchange={searchAction} disabled={disableMetaSearch}>
+                            </lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-var-m-bottom_xx-small">
+                            <template if:true={viewOptions}>
+                                <lightning-button-icon icon-name="action:approval" variant="brand" value="selectMeta"
+                                    disabled={allMetaChecked} onclick={handleActions} style="float:right;"
+                                    class="slds-var-m-left_xx-small" alternative-text="Select All Metadata">
+                                </lightning-button-icon>
+                                <lightning-button-icon class="slds-var-m-left_xx-small" icon-name="action:close"
+                                    value="clearMeta" variant="brand" disabled={allMetaUnChecked} style="float:right;"
+                                    onclick={handleActions} alternative-text="Clear All Selected Metadata">
+                                </lightning-button-icon>
+                                <lightning-button-icon class="slds-var-m-left_xx-small" icon-name="action:refresh"
+                                    disabled={disablerefreshMetadata} value="RefreshMetadata" variant="brand"
+                                    onclick={handleActions} style="float:right;"
+                                    alternative-text="Refresh Metadata Index">
+                                </lightning-button-icon>
+                            </template>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-large-size_12-of-12 slds-small-size_12-of-12 titleClass"
+                            style="min-height:2rem;">
+                            <p>
+                                <lightning-formatted-text value={currentView}>
+                                </lightning-formatted-text>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-var-m-bottom_xx-small">
+                            <lightning-input type="search" data-id="component"
+                                style="width:100%;color:black;display:inline-flex;" placeholder={placeHolder}
+                                value={optionFilter} onchange={searchAction} disabled={disableCompSearch}>
+                            </lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-var-m-bottom_xx-small">
+                            <template if:true={options}>
+                                <lightning-button-icon icon-name="action:approval" variant="brand" value="selectComp"
+                                    disabled={allCompChecked} onclick={handleActions}
+                                    style="float:right;margin-left:4px;" alternative-text="Select All Components">
+                                </lightning-button-icon>
+                                <lightning-button-icon class="slds-var-m-left_xx-small" icon-name="action:close"
+                                    value="clearComp" variant="brand" disabled={allCompUnChecked}
+                                    style="float:right;margin-left:4px;" onclick={handleActions}
+                                    alternative-text="Clear All Selected Components">
+                                </lightning-button-icon>
+                            </template>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div style="height:30.5rem;">
+                <template if:false={isLoading}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12 slds-small-size_6-of-12">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_11-of-12 slds-var-m-bottom_xx-small slds-scrollable"
+                                    style="height:30rem">
+                                    <template if:true={viewOptions}>
+                                        <ul class="options" tabindex="0" style=" outline: none !important;">
+                                            <template for:each={searchedmetaOptions} for:item="field">
+                                                <li class="slds-item" key={field.value} value={field.value}>
+                                                    <div class="slds-grid slds-wrap">
+                                                        <div class="slds-col slds-size_1-of-12">
+                                                            <template if:false={field.partial}>
+                                                                <lightning-input data-id={field.value}
+                                                                    data-my-id={field.value} type="checkbox"
+                                                                    id={field.value} checked={field.checked}
+                                                                    onchange={handlemetaSelect}>
+                                                                </lightning-input>
+                                                            </template>
+                                                            <template if:true={field.partial}>
+                                                                <div id={field.value} onclick={handlePartialClick}>
+                                                                    <img src={partialCheckboxIcon} style="background: white;
+                                                                    width: 16px;border-radius:25px">
+                                                                </div>
+                                                            </template>
+
+                                                        </div>
+                                                        <div class=" slds-col slds-size_11-of-12" id={field.value}
+                                                            data-id={field.value} onclick={handlemetaSelect}>
+                                                            <p>
+                                                                <lightning-formatted-text value={field.label}>
+                                                                </lightning-formatted-text>
+                                                                <lightning-icon style="padding-right:1rem;float:right;"
+                                                                    icon-name="utility:chevronright" size="xx-small"
+                                                                    alternative-text="Preview" title="Preview">
+                                                                </lightning-icon>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-small-size_6-of-12">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_12-of-12 slds-var-m-bottom_xx-small slds-scrollable"
+                                    style="height:30rem">
+                                    <ul class="options" tabindex="0" style=" outline: none !important;">
+                                        <template if:true={options}>
+                                            <template for:each={freshoptions} for:item="comp">
+                                                <li class="slds-item" key={comp.value} value={comp.value}>
+                                                    <div class="slds-grid slds-wrap">
+                                                        <div class="slds-col slds-size_1-of-12">
+                                                            <lightning-input type="checkbox" name="input1"
+                                                                checked={comp.checked} data-id={comp.value}
+                                                                onchange={handleCompSelect}>
+                                                            </lightning-input>
+                                                        </div>
+                                                        <div class="slds-col slds-size_11-of-12">
+                                                            <p>
+                                                                <lightning-formatted-text value={comp.label}>
+                                                                </lightning-formatted-text>
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <template if:true={showPrompt}>
+            <c-confirmation-modal confirmation-message={confirmationMessage} onpromptaction={handlePromptResponse}>
+            </c-confirmation-modal>
+        </template>
+    </div>
+</template>

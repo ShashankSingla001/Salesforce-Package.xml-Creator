@@ -1,0 +1,32 @@
+.content {
+    font-family: monospace;
+    font-size: 14px;
+    color: #fff;
+}
+
+.spacing {
+    word-break: break-all !important;
+    white-space: pre-wrap !important;
+    height: 30.5rem;
+}
+
+.titleClass {
+    font-family: monospace;
+    font-size: 16px;
+    word-break: break-word !important;
+    color: #fff;
+}
+
+.content {
+    height: 32rem;
+    background-color: rgb(22, 50, 92);
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+}

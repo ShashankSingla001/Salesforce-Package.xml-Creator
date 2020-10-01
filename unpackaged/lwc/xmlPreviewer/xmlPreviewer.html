@@ -1,0 +1,31 @@
+<template>
+    <div class="slds-box" style="background-color: rgb(22, 50, 92);">
+        <div class=" slds-grid slds-wrap">
+            <div class="slds-col slds-large-size_9-of-12 slds-small-size_12-of-12 titleClass">
+                <lightning-formatted-text value="XML Preview of the Selected Metadata Components">
+                </lightning-formatted-text>
+            </div>
+            <div class="slds-col slds-large-size_3-of-12 slds-small-size_12-of-12">
+                <template if:true={showCopyIcon}>
+                    <lightning-button-icon icon-name="utility:copy" title="Copy" variant="brand" size="medium"
+                        style="margin-left: 4px;float:right;" onclick={handleCopyXml} alternative-text="Copy">
+                    </lightning-button-icon>
+                </template>
+                <template if:false={showCopyIcon}>
+                    <lightning-button-icon icon-name="utility:check" title="XML Copied" variant="brand" size="medium"
+                        style="margin-left: 4px;float:right;" alternative-text="XML Copied">
+                    </lightning-button-icon>
+                </template>
+                <lightning-button-icon icon-name="action:download" variant="brand" title="Download" size="medium"
+                    style="float:right;margin-left: 4px;" onclick={exportPackage} disabled={disableExport}
+                    alternative-text="Download">
+                </lightning-button-icon>
+            </div>
+            <div class="slds-col slds-size_12-of-12 slds-scrollable content slds-box" style="height: 34rem;">
+                <pre class="spacing" lang="xml">
+                {XmlFetcher}
+            </pre>
+            </div>
+        </div>
+    </div>
+</template>

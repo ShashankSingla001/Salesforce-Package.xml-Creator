@@ -1,0 +1,22 @@
+.content p {
+    font-family: monospace;
+    font-size: 16px;
+    word-break: break-word;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+}
+
+.slds-item:hover {
+    background-color: #b8babb;
+}
+
+.titleClass {
+    font-size: 18px;
+}
