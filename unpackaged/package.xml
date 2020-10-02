@@ -16,6 +16,10 @@
         <name>FlexiPage</name>
     </types>
     <types>
+        <members>SessionIdViewer</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
         <members>confirmationModal</members>
         <members>metadataSelectorAdvanced</members>
         <members>xmlPreviewer</members>
